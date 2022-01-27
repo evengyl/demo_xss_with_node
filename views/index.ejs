@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Faille Xss (Cross site scripting)</h1>
+    <form method="post" action="#">
+        <label>Login</label>
+        <input name="login" type="text">
+        <br>
+        <label>Mot de passe</label>
+        <input name="pwd" type="password">
+        <br>
+        <button type="submit">Envoyer</button>
+
+    </form>
+    <script type='text/javascript'>
+        const xhr = new XMLHttpRequest();
+    xhr.open(`GET`, `https://pokeapi.co/api/v2/pokemon/ditto`, true);
+    xhr.send();
+
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4)
+        {
+            let response = xhr.responseText;
+            document.body.innerHTML = response;
+        }
+    }
+    </script>
+</body>
+</html>
